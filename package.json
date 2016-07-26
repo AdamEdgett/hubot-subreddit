@@ -1,0 +1,19 @@
+{
+  "name": "hubot-subreddit",
+  "version": "1.0.0",
+  "author": "Adam Edgett <adam.edgett@gmail.com>",
+  "description": "Replies with a random post from a subreddit",
+  "keywords": ["hubot", "hubot-scripts", "reddit", "subreddit"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdamEdgett/hubot-subreddit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AdamEdgett/hubot-subreddit/issues"
+  },
+  "main": "./src/subreddit.coffee",
+  "dependencies": {
+    "coffee-script": "1.6.3"
+  }
+}
