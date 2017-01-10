@@ -57,6 +57,6 @@ module.exports = (robot) ->
   for alias, subreddit of aliases
     robot.respond "/#{alias}( me)?/i", sendRandomPost(subreddit)
 
-  robot.respond "/sub( me)? (.*)/i", (msg) ->
+  robot.respond /sub( me)? (.*)/i, (msg) ->
     subreddit = msg.match[2]
-    sendRandomPost(msg, subreddit)
+    sendRandomPost(subreddit)(msg)
