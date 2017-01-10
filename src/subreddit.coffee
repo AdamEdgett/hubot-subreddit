@@ -15,7 +15,7 @@
 url = require("url")
 fs = require("fs")
 
-sendRandomPost = (msg, subreddit) ->
+sendRandomPost = (subreddit) -> (msg) ->
   msg.http("https://www.reddit.com/r/#{subreddit}.json")
     .get() (err, res, body) ->
       result = JSON.parse(body)
@@ -52,11 +52,10 @@ module.exports = (robot) ->
 
   else if fs.existsSync 'subreddit_aliases.json'
     file = fs.readFileSync 'subreddit_aliases.json', 'utf8'
-    aliases = JSON.parse(file);
+    aliases = JSON.parse(file)
 
   for alias, subreddit of aliases
-    robot.respond "/#{alias}( me)?/i", (msg) ->
-      sendRandomPost(msg, subreddit)
+    robot.respond "/#{alias}( me)?/i", sendRandomPost(subreddit)
 
   robot.respond "/sub( me)? (.*)/i", (msg) ->
     subreddit = msg.match[2]
