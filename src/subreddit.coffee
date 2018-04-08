@@ -10,13 +10,16 @@
 #
 # Commands:
 #   hubot sub me SUBREDDIT - Get a post from the given subreddit
+#   hubot sub me top SUBREDDIT - Get a post from the top of all time from the given subreddit
+#   hubot sub me top week SUBREDDIT - Get a post from the top of the week from the given subreddit
 #   hubot SUBREDDIT_ALIAS me - Get a post from the aliased subreddit
 
 url = require("url")
 fs = require("fs")
 
-sendRandomPost = (subreddit) -> (msg) ->
-  msg.http("https://www.reddit.com/r/#{subreddit}.json")
+sendRandomPost = (msg, subreddit, sort, time) ->
+  query = if time then "?t=#{time}" else ""
+  msg.http("https://www.reddit.com/r/#{subreddit}/#{sort}.json#{query}")
     .get() (err, res, body) ->
       result = JSON.parse(body)
 
@@ -55,8 +58,11 @@ module.exports = (robot) ->
     aliases = JSON.parse(file)
 
   for alias, subreddit of aliases
-    robot.respond "/#{alias}( me)?/i", sendRandomPost(subreddit)
+    robot.respond "/#{alias}( me)?/i", (msg) -> sendRandomPost(msg, subreddit)
 
-  robot.respond /sub( me)? (.*)/i, (msg) ->
-    subreddit = msg.match[2]
-    sendRandomPost(subreddit)(msg)
+  robot.respond /sub(?: me)?( top)? ?(all|year|month|week|day)? (\S*)/i, (msg) ->
+    sort = if msg.match[1] then 'top' else 'hot'
+    time = msg.match[2]
+    subreddit = msg.match[3]
+    sendRandomPost(msg, subreddit, sort, time)
+
