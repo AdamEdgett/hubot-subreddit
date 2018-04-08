@@ -20,7 +20,15 @@ fs = require("fs")
 sendRandomPost = (msg, subreddit, sort, time) ->
   query = if time then "?t=#{time}" else ""
   msg.http("https://www.reddit.com/r/#{subreddit}/#{sort}.json#{query}")
-    .get() (err, res, body) ->
+    .get() (err, resp, body) ->
+      if resp.statusCode == 302 # redirects to search on subreddit not found
+        msg.send "Subreddit not found"
+        return
+
+      if resp.statusCode == 403
+        msg.send "Subreddit is private"
+        return
+
       result = JSON.parse(body)
 
       urls = [ ]
