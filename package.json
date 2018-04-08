@@ -1,9 +1,14 @@
 {
   "name": "hubot-subreddit",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "author": "Adam Edgett <adam.edgett@gmail.com>",
   "description": "Replies with a random post from a subreddit",
-  "keywords": ["hubot", "hubot-scripts", "reddit", "subreddit"],
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "reddit",
+    "subreddit"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
