@@ -1,6 +1,6 @@
 {
   "name": "hubot-subreddit",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Adam Edgett <adam.edgett@gmail.com>",
   "description": "Replies with a random post from a subreddit",
   "keywords": [
