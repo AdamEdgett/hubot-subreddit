@@ -66,7 +66,8 @@ module.exports = (robot) ->
     aliases = JSON.parse(file)
 
   for alias, subreddit of aliases
-    robot.respond "/#{alias}( me)?/i", (msg) -> sendRandomPost(msg, subreddit, 'hot')
+    do (alias, subreddit) ->
+      robot.respond "/#{alias}( me)?/i", (msg) -> sendRandomPost(msg, subreddit, 'hot')
 
   robot.respond /sub(?: me)?( top)? ?(all|year|month|week|day)? (\S*)/i, (msg) ->
     sort = if msg.match[1] then 'top' else 'hot'
